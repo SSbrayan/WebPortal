@@ -1,0 +1,17 @@
+<h1>{{target.name }}</h1>
+<h3>IP: {{target.IP }}</h3>
+<h3>Status: {{target.status }}</h3>
+<h3>IPSS_version: {{target.IPSS_version }}</h3>
+<h3>OS Version: {{target.OS }}</h3>
+<h3>Bios Version: {{target.bios }}</h3>
+<h3>Platform: {{target.platform }}</h3>
+<h3>Available: {{target.available }}</h3>
+
+
+
+<form action="{% url 'polls:update_IP' target.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Update IP" />
+</form>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
