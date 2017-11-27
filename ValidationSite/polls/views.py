@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.views import generic
 
 
+from scripts.updateip import update_IP
+from scripts.updateports import get_port_status
+
 
 from .models import Question, Target, Choice
 
@@ -67,12 +70,17 @@ class TargetDetailView(generic.DetailView):
     model = Target
     template_name = 'polls/targetdetail.html'
 
-def update_IP(request, target_id):
-    target = get_object_or_404(Target, pk=target_id)
 
-    target.IP = 'hola mundo'
-    target.save()
-    # Always return an HttpResponseRedirect after successfully dealing
-    # with POST data. This prevents data from being posted twice if a
-    # user hits the Back button.
-    return HttpResponseRedirect(reverse('polls:targetdetail', args=(target.id,)))
+
+
+
+
+#def update_IP(request, target_id):
+#    target = get_object_or_404(Target, pk=target_id)
+
+#    target.IP = 'hola mundo'
+#    target.save()
+#    # Always return an HttpResponseRedirect after successfully dealing
+#    # with POST data. This prevents data from being posted twice if a
+#    # user hits the Back button.
+#    return HttpResponseRedirect(reverse('polls:targetdetail', args=(target.id,)))

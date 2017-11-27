@@ -15,6 +15,7 @@ class Target(models.Model):
     OS = models.CharField(max_length=50,default='0.0')
     bios = models.CharField(max_length=50,default='0.0')
     platform = models.CharField(max_length=50,default='NoPlatform')
+    ports = models.CharField(max_length=1000,default='No Ports')
     pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.name

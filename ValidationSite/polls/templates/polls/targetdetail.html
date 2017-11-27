@@ -6,6 +6,7 @@
 <h3>Bios Version: {{target.bios }}</h3>
 <h3>Platform: {{target.platform }}</h3>
 <h3>Available: {{target.available }}</h3>
+<h3>Ports: {{target.ports }}</h3>
 
 
 
@@ -13,5 +14,14 @@
     {% csrf_token %}
     <input type="submit" value="Update IP" />
 </form>
+
+<form action="{% url 'polls:get_port_status' target.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Update Ports" />
+</form>
+
+
+
+
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
