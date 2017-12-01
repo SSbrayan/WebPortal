@@ -5,7 +5,7 @@ from django.views import generic
 import socket
 
 
-from ..models import Question, Target, Choice
+from ..models import Question, Target, Choice, Interface, Port
 
 
 def update_IP(request, target_id):
@@ -15,6 +15,7 @@ def update_IP(request, target_id):
         target.IP = socket.gethostbyname(target.name)
     except :
         target.IP = 'No Response'
+
     target.save()
     # Always return an HttpResponseRedirect after successfully dealing
     # with POST data. This prevents data from being posted twice if a

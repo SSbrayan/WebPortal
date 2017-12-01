@@ -1,12 +1,141 @@
-<h1>{{target.name }}</h1>
-<h3>IP: {{target.IP }}</h3>
-<h3>Status: {{target.status }}</h3>
-<h3>IPSS_version: {{target.IPSS_version }}</h3>
-<h3>OS Version: {{target.OS }}</h3>
-<h3>Bios Version: {{target.bios }}</h3>
-<h3>Platform: {{target.platform }}</h3>
-<h3>Available: {{target.available }}</h3>
-<h3>Ports: {{target.ports }}</h3>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        /*width:200px;
+        float:left;*/
+
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #dddddd;
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(1) th:first-child {
+        background-color: #000;
+        color: #ffffff;
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+
+</style>
+
+
+
+<h1><center>{{target.name }}</center></h1>
+
+<table>
+    <tr>
+        <th colspan="2">Environment Information</th>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>{{target.status}}</td>
+    </tr>
+    <tr>
+        <td>IP</td>
+        <td>{{target.IP}}</td>
+    </tr>
+    <tr>
+        <td>IPSS Version</td>
+        <td>{{target.IPSS_version}}</td>
+    </tr>
+    <tr>
+        <td>OS Version</td>
+        <td>{{target.OS}}</td>
+    </tr>
+    <tr>
+        <td>Bios Version</td>
+        <td>{{target.bios}}</td>
+    </tr>
+    <tr>
+        <td>Available</td>
+        <td>{{target.available}}</td>
+    </tr>
+
+
+</table>
+<br>
+<table>
+    <tr>
+        <th colspan="2">System Information</th>
+    </tr>
+
+    <tr>
+        <td>CPU Platform</td>
+        <td>{{target.CPUplatform }}</td>
+    </tr>
+    <tr>
+        <td>CPU SKU</td>
+        <td>{{target.CPUSKU}}</td>
+    </tr>
+    <tr>
+        <td>CPU Stepping</td>
+        <td>{{target.CPUstepping}}</td>
+    </tr>
+    <tr>
+        <td>CPU ID</td>
+        <td>{{target.CPUid}}</td>
+    </tr>
+    <tr>
+        <td>PCH Platform</td>
+        <td>{{target.PCHplatform}}</td>
+    </tr>
+    <tr>
+        <td>PCH SKU</td>
+        <td>{{target.PCHSKU}}</td>
+    </tr>
+    <tr>
+        <td>PCH Stepping</td>
+        <td>{{target.PCHstepping}}</td>
+    </tr>
+    <tr>
+        <td>PCH ID</td>
+        <td>{{target.PCHid}}</td>
+    </tr>
+</table>
+
+<br>
+<table>
+    <tr>
+        <th colspan="4">Port Information</th>
+    </tr>
+    {% for interface in target.interface_set.all %}
+        <tr>
+            <th colspan="4">{{interface.name }}</th>
+        </tr>
+        <tr>
+            <th>Port</th>
+            <th>Speed</th>
+            <th>Width</th>
+            <th>State</th>
+        </tr>
+        {% for port in interface.port_set.all %}
+
+            <tr>
+                <td>{{port.number }}</td>
+                <td>{{port.speed }}</td>
+                <td>{{port.width }}</td>
+                <td>{{port.state }}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+
+
+
+
 
 
 
@@ -20,6 +149,14 @@
     <input type="submit" value="Update Ports" />
 </form>
 
+
+<hr>
+
+<h2><center>DEBUG</center></h2>
+<h3><font color="orange">ports_dic:</font> {{target.ports_dic }}</h3>
+<h3><font color="orange">ports_limits_dic:</font> {{target.ports_limits_dic }}</h3>
+<h3><font color="orange">system_information_dic:</font> {{target.system_information_dic }}</h3>
+<h3><font color="orange">system_information_js:</font> {{target.system_information_js }}</h3>
 
 
 

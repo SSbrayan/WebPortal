@@ -1,0 +1,5 @@
+set ftp_proxy=http://proxy-chain.intel.com:911
+set http_proxy=http://proxy-chain.intel.com:911
+set https_proxy=http://proxy-chain.intel.com:912
+set no_proxy=intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,127.0.0.0/8,134.134.0.0/16
+set socks_proxy=http://proxy-chain.intel.com:1080

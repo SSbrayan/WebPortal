@@ -63,12 +63,13 @@ class TargetIndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Target.objects.order_by('-pub_date')[:5]
+        return Target.objects.order_by('-pub_date')
 
 
 class TargetDetailView(generic.DetailView):
     model = Target
     template_name = 'polls/targetdetail.html'
+
 
 
 
