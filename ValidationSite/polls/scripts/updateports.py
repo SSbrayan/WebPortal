@@ -25,8 +25,10 @@ def get_port_status(request, target_id):
         target.status ='Not Conected'
 
 
-        target.system_information_js = json.loads(response.content)
-    if  target.system_information_js['status'] == '3':
+    target.system_information_js = json.loads(response.content)
+
+    if  target.system_information_js['status'] == 3:
+        target.status ='Connected'
         target.ports_dic = target.system_information_js['result']['portInformation']
         target.ports_dic.pop()
         target.system_information_dic = json.loads(response.content)['result']['systemInformation']
@@ -36,7 +38,7 @@ def get_port_status(request, target_id):
 
 
     else:
-        target.status = 'Deny({})'.format(response['status'])
+        target.status = 'Deny({})'.format(str(target.system_information_js['status']))
 
 
     target.save()
