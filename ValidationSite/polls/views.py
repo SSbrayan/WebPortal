@@ -5,7 +5,7 @@ from django.views import generic
 
 
 from scripts.updateip import update_IP
-from scripts.updateports import get_port_status
+from scripts.updateports import info_update
 
 
 from .models import Question, Target, Choice

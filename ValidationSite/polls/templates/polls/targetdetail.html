@@ -35,6 +35,9 @@
 
 <h1><center>{{target.name }}</center></h1>
 
+
+
+
 <table>
     <tr>
         <th colspan="2">Environment Information</th>
@@ -144,9 +147,9 @@
     <input type="submit" value="Update IP" />
 </form>
 
-<form action="{% url 'polls:get_port_status' target.id %}" method="post">
+<form action="{% url 'polls:info_update' target.id %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Update Ports" />
+    <input type="submit" value="Update" />
 </form>
 
 
@@ -160,5 +163,7 @@
 
 
 
-
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+

@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^targets/$', views.TargetIndexView.as_view(), name='targetindex'),
     url(r'^targets/(?P<pk>[0-9]+)/$', views.TargetDetailView.as_view(), name='targetdetail'),
     url(r'^targets/(?P<target_id>[0-9]+)/update_IP$', views.update_IP, name='update_IP'),
-    url(r'^targets/(?P<target_id>[0-9]+)/get_port_status$', views.get_port_status, name='get_port_status'),
+    url(r'^targets/(?P<target_id>[0-9]+)/get_port_status$', views.info_update, name='info_update'),
 ]

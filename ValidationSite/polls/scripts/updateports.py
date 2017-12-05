@@ -2,16 +2,71 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+import thread
 import socket
 import requests
 import json
+import time
 
 from ..models import Question, Target, Choice, Interface, Port
 
+def info_update(request, target_id):
+    target = get_object_or_404(Target, pk=target_id)
+    target.status ="Retrieving Information"
+    target.save()
+
+    thread.start_new_thread(info_update_mini2,(target,))
+    return HttpResponseRedirect(reverse('polls:targetdetail', args=(target_id,)))
+    
+
+    #return info_update_mini(request, target_id)
 
 
 
-def get_port_status(request, target_id):
+
+
+def info_update_mini2(target):
+    
+
+    portscleanup(target)
+    sysinfocleanup(target)
+
+    try :
+        endpoint ='http://{0}:8090/evservices/api/router/interactives/ioMargin/uiTestConfiguration'.format(target.name)
+        payload = '{"py/object":"evToolsRouter.data.interactive.InteractiveCommandData","commandName":"uiTestConfiguration","settings":""}'
+        response = requests.put(endpoint,  payload)
+    except:
+        target.status ='Not Conected'
+
+
+    target.system_information_js = json.loads(response.content)
+
+    if  target.system_information_js['status'] == 3:
+        target.status ='Connected'
+        target.ports_dic = target.system_information_js['result']['portInformation']
+        target.ports_dic.pop()
+        target.system_information_dic = json.loads(response.content)['result']['systemInformation']
+        target.ports_limits_dic = json.loads(response.content)['result']['uiTestConfiguration']
+        portsdecode(target)
+        sysinfodecode(target)
+
+
+    else:
+        target.status = 'Deny({})'.format(str(target.system_information_js['status']))
+
+
+    target.save()
+    # Always return an HttpResponseRedirect after successfully dealing
+    # with POST data. This prevents data from being posted twice if a
+    # user hits the Back button.
+    #return HttpResponseRedirect(reverse('polls:targetdetail', args=(target.id,)))
+
+
+
+
+
+
+def info_update_mini(request, target_id):
     target = get_object_or_404(Target, pk=target_id)
 
     portscleanup(target)
@@ -46,6 +101,9 @@ def get_port_status(request, target_id):
     # with POST data. This prevents data from being posted twice if a
     # user hits the Back button.
     return HttpResponseRedirect(reverse('polls:targetdetail', args=(target.id,)))
+
+
+
 
 
 
